@@ -1,0 +1,3 @@
+$(".super-header-wrapper").html("<img style='width:100%' src='http://goo.gl/WCrBmS'>");
+^^
+finds the element of class "super-header-wrapper" and replaces it with the html inside the .html() command
