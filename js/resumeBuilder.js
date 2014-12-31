@@ -10,7 +10,7 @@ var bio = {
     "location": "Washington, DC"
   },
   "welcomeMessage": "Hi, my name is Russell and I'm cool",
-  "skills": ["JS", " Python", " R", " webapp", " Django"],
+  "skills": ["JS", "Python", "R", "webapp", "Django"],
   "bioPic": "http://elclarin.net.ve/sistema/wp-content/uploads/2014/09/Jen-Selter.jpg"
 };
 
@@ -64,6 +64,59 @@ var projects = {
   ]
 }
 
+var formattedName = HTMLheaderName.replace('%data%', bio.name);
+var formattedRole = HTMLheaderRole.replace('%data%', bio.role);
+
+var formattedContact = HTMLemail.replace('%data%', bio.contacts.email);
+var formattedPic = HTMLbioPic.replace('%data%', bio.bioPic);
+var formattedWelcome = HTMLWelcomeMsg.replace('%data%', bio.welcomeMessage);
+
+$('#header').prepend(formattedRole);
+$('#header').prepend(formattedName);
+
+if(bio.skills){
+  $("#header").append(HTMLskillsStart)
+  for(skill in bio.skills){
+    $("#skills").append(HTMLskills.replace('%data%', bio.skills[skill]));
+  }
+}
+
+function displayWork(){
+  for(job in work.jobs){
+    //create new div for work experience
+    $("#workExperience").append(HTMLworkStart);
+    var employer = HTMLworkEmployer.replace("%data%", work.jobs[job].employer);
+    var title = HTMLworkTitle.replace("%data%", work.jobs[job].title);
+    $(".work-entry:last").append(employer + title);
+    $(".work-entry:last").append(HTMLworkDates.replace("%data%", work.jobs[job].dates));
+    $(".work-entry:last").append(HTMLworkLocation.replace("%data%", work.jobs[job].location));
+    $(".work-entry:last").append(HTMLworkDescription.replace("%data%", work.jobs[job].description));
+  }
+}
+
+displayWork();
+
+projects.display = function(){
+  for(proj in projects.projects) {
+    $("#projects").append(HTMLprojectStart);
+    $(".project-entry:last").append(HTMLprojectTitle.replace('%data%', projects.projects[proj].title));
+    $(".project-entry:last").append(HTMLprojectDates.replace('%data%', projects.projects[proj].dates));
+    $(".project-entry:last").append(HTMLprojectDescription.replace('%data%', projects.projects[proj].description));
+  }
+}
+
+projects.display()
+
+function inName(name){
+  name = name.trim().split(" ");
+  console.log(name);
+  name[0] = name[0].slice(0,1).toUpperCase() + name[0].slice(1).toLowerCase();
+  name[1] = name[1].toUpperCase();
+  return name.join(" ");
+}
+
+$("#main").append(internationalizeButton);
+$("#mapDiv").append(googleMap);
 
 // $("#main").append("Russell Owen");
 
